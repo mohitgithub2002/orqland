@@ -1,0 +1,21 @@
+/* Order cards (Orders page). The processing card's border blinks red as the preparation timer runs low. */
+@keyframes order-urgent-blink {
+  0%,
+  100% {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 4px rgb(239 68 68 / 0.22);
+  }
+  50% {
+    border-color: #fecaca;
+    box-shadow: 0 0 0 0 rgb(239 68 68 / 0);
+  }
+}
+.order-urgent {
+  animation: order-urgent-blink 1.1s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .order-urgent {
+    animation: none;
+    border-color: #ef4444;
+  }
+}

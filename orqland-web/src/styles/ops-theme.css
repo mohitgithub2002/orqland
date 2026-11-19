@@ -1,0 +1,70 @@
+/*
+ * Operational theme for the Orders, Delivery and Orqland Run screens (guide §11 "Design direction":
+ * minimal black, white and neutral surfaces). Scoped to `.ops-theme`, so the rest of the Orqland
+ * app keeps its brand colours. Radix portals (dialogs/sheets) receive the class on their content.
+ */
+.ops-theme {
+  --background: #f7f7f6;
+  --foreground: #0b0b0b;
+  --card: #ffffff;
+  --muted: #f2f2f0;
+  --muted-foreground: #6b6a66;
+  --primary: #0b0b0b;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f2f0;
+  --accent: #efefec;
+  --border: #e3e2dd;
+  --input: #d6d5cf;
+  --ring: #0b0b0b;
+  /* Status steps — always paired with a text label (never colour alone). */
+  --success: #0b8a0b;
+  --warning: #e09a00;
+  --destructive: #c62f2f;
+  --info: #0b0b0b;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  color: var(--foreground);
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+.ops-theme .tabular,
+.ops-theme [data-num] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Offline map fallback: a quiet grid so markers and routes stay readable without tiles. */
+.ops-map {
+  background-color: #f1f1ee;
+  background-image:
+    linear-gradient(#e4e3de 1px, transparent 1px),
+    linear-gradient(90deg, #e4e3de 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.ops-map .leaflet-tile-pane {
+  filter: grayscale(1) contrast(1.05) brightness(1.02);
+}
+.ops-map .leaflet-control-attribution {
+  font-size: 9px;
+  background: rgb(255 255 255 / 0.8);
+}
+.ops-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes ops-ping {
+  0% { transform: scale(1); opacity: 0.55; }
+  80%, 100% { transform: scale(2.4); opacity: 0; }
+}
+.ops-ping {
+  animation: ops-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ops-ping { animation: none; }
+}
+
+.ops-map.leaflet-container {
+  background-color: #f1f1ee;
+  font-family: inherit;
+}

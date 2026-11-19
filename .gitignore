@@ -1,0 +1,19 @@
+# Dependencies & build output
+node_modules/
+dist/
+.next/
+.tanstack/
+*.tsbuildinfo
+next-env.d.ts
+
+# Local environment & secrets — never commit (see .env.example files)
+.env
+.env.local
+.env.*.local
+
+# Local data (encrypted dev uploads, etc.)
+.data/
+
+# OS / editor
+.DS_Store
+*.log

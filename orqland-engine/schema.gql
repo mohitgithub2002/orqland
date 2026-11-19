@@ -1,0 +1,1463 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AcceptOrderInput {
+  note: String
+  orderId: ID!
+  preparationMinutes: Int
+  startPreparation: Boolean = false
+}
+
+enum ActorRole {
+  AGENT
+  CUSTOMER
+  PLATFORM_ADMIN
+  SYSTEM
+  WORKSPACE
+}
+
+type AddressSnapshot {
+  city: String
+  country: String
+  district: String
+  doorNo: String
+  landmark: String
+  latitude: Float
+  longitude: Float
+  pincode: String
+  recipientName: String
+  recipientPhone: String
+  state: String
+  street: String
+}
+
+input AdjustEarningInput {
+  amount: String!
+  earningId: ID!
+  reason: String!
+}
+
+input AdminAgentActionInput {
+  reason: String!
+  userId: ID!
+}
+
+input AdminReviewDecisionInput {
+  approve: Boolean!
+  reason: String!
+  userId: ID!
+}
+
+enum AgentAvailabilityChoice {
+  OFFLINE
+  ONLINE
+}
+
+type AgentConnection {
+  activatedAt: DateTime
+  activeTaskCount: Int!
+  agent: DeliveryAgentSummary!
+  agentUserId: ID!
+  currentRatePerKm: String!
+  disconnectReason: String
+  disconnectRequestReason: String
+  disconnectRequestStatus: String
+  disconnectRequestedAt: DateTime
+  disconnectRequestedByRole: ActorRole
+  disconnectedAt: DateTime
+  id: ID!
+  inviteExpiresAt: DateTime!
+  inviteMessage: String
+  invitedAt: DateTime!
+  orqspaceId: ID!
+  orqspaceName: String!
+  rateHistory: [AgentRateHistoryEntry!]!
+  respondedAt: DateTime
+  status: AgentConnectionStatus!
+}
+
+enum AgentConnectionStatus {
+  ACTIVE
+  CANCELLED
+  DECLINED
+  DISCONNECTED
+  EXPIRED
+  PENDING
+}
+
+type AgentEarningsSummary {
+  month: AgentEarningsWindow!
+  periodMonth: String!
+  recent: [DeliveryEarning!]!
+  today: AgentEarningsWindow!
+}
+
+type AgentEarningsTrendPoint {
+  amount: String!
+  billableKm: String!
+  deliveries: Int!
+  periodMonth: String!
+}
+
+type AgentEarningsWindow {
+  approved: String!
+  billableKm: String!
+  deliveries: Int!
+  estimated: String!
+  paid: String!
+}
+
+type AgentOffer {
+  offer: DeliveryOffer!
+  task: DeliveryTask!
+}
+
+type AgentPerformance {
+  accepted: Int!
+  averageDistanceKm: String!
+  averageEarningPerDelivery: String!
+  billableKm: String!
+  completed: Int!
+  declined: Int!
+  expired: Int!
+  failed: Int!
+  offered: Int!
+  periodMonth: String!
+  trackedKm: String!
+}
+
+type AgentRateHistoryEntry {
+  effectiveFrom: DateTime!
+  id: ID!
+  ratePerKm: String!
+  reason: String
+}
+
+type AgentSearchResult {
+  agent: DeliveryAgentSummary
+  canInvite: Boolean!
+  existingConnection: AgentConnection
+  reason: String
+  workspaceActiveConnections: Int!
+  workspaceConnectionLimit: Int!
+}
+
+type AgentStatement {
+  adjustmentTotal: String!
+  byWorkspace: [AgentStatementWorkspaceLine!]!
+  csv: String!
+  grandTotal: String!
+  isClosed: Boolean!
+  lines: [DeliveryEarning!]!
+  periodEnd: String!
+  periodMonth: String!
+  periodStart: String!
+  status: String
+  totals: AgentEarningsWindow!
+}
+
+type AgentStatementWorkspaceLine {
+  amount: String!
+  billableKm: String!
+  deliveries: Int!
+  orqspaceId: ID!
+  orqspaceName: String!
+}
+
+type AgentWorkload {
+  activeTasks: Int!
+  agentUserId: ID!
+  availability: DeliveryAgentAvailability!
+  deliveredToday: Int!
+  disconnectPending: Boolean!
+  displayName: String!
+  lastLocationAt: DateTime
+  locationStale: Boolean!
+  maxConcurrentTasks: Int!
+  orqUserId: String!
+  ratePerKm: String!
+}
+
+input ApproveEarningInput {
+  approvedBillableKm: String
+  earningId: ID!
+  reason: String
+}
+
+input ApproveRefundInput {
+  orderId: ID!
+  providerReference: String
+}
+
+enum AssignmentStrategy {
+  HYBRID
+  LEAST_LOADED
+  NEAREST
+}
+
+enum AssignmentType {
+  AUTO
+  MANUAL
+}
+
+type BuyerSnapshot {
+  email: String
+  name: String!
+  orqUserId: String!
+  phone: String
+}
+
+input ChangeVehicleInput {
+  vehicleCategory: VehicleCategory!
+  vehicleNumber: String!
+  vehicleRcFileId: ID
+}
+
+type CheckoutAddress {
+  addressType: String!
+  city: String
+  country: String
+  district: String
+  doorNo: String
+  id: ID!
+  isPrimary: Boolean!
+  landmark: String
+  latitude: Float
+  longitude: Float
+  pincode: String
+  recipientName: String
+  recipientPhone: String
+  state: String
+  street: String
+}
+
+enum CodCollectionMethod {
+  CASH
+  OTHER
+  UPI_TO_SELLER
+}
+
+input CodFilterInput {
+  orqspaceId: ID!
+  statuses: [CodStatus!]
+}
+
+type CodRecord {
+  agentName: String
+  agentUserId: ID
+  collectedAmount: String
+  collectedAt: DateTime
+  collectionMethod: CodCollectionMethod
+  collectionProofFileId: ID
+  createdAt: DateTime!
+  discrepancyReason: String
+  expectedAmount: String!
+  id: ID!
+  orderId: ID!
+  orderNumber: String!
+  outstandingAmount: String!
+  resolvedAt: DateTime
+  settledAmount: String!
+  settlements: [CodSettlement!]!
+  status: CodStatus!
+  taskId: ID!
+  taskNumber: String!
+}
+
+enum CodResolution {
+  ACCEPT_AS_SETTLED
+  KEEP_UNDER_REVIEW
+  MARK_NOT_COLLECTED
+}
+
+type CodSettlement {
+  amount: String!
+  createdAt: DateTime!
+  id: ID!
+  method: CodCollectionMethod!
+  note: String
+  recordedByName: String
+}
+
+enum CodStatus {
+  COLLECTED
+  DISCREPANCY
+  NOT_COLLECTED
+  PARTIALLY_SETTLED
+  PENDING_COLLECTION
+  SETTLED
+  UNDER_REVIEW
+}
+
+type CodSummary {
+  collected: String!
+  discrepancies: Int!
+  expected: String!
+  openRecords: Int!
+  outstanding: String!
+  settled: String!
+}
+
+input CompleteDeliveryInput {
+  codCollectedAmount: String
+  codMethod: CodCollectionMethod
+  codProofFileId: ID
+  lat: Float
+  lng: Float
+  otp: String
+  photoFileId: ID
+  photoUrl: String
+  recipientName: String
+  taskId: ID!
+}
+
+input ConnectionReasonInput {
+  afterActiveDeliveries: Boolean = false
+  connectionId: ID!
+  reason: String!
+}
+
+input CostReportInput {
+  orqspaceId: ID!
+  periodMonth: String!
+}
+
+input CreateSupportTicketInput {
+  attachmentFileIds: [ID!]
+  attachmentUrls: [String!]
+  category: SupportTicketCategory!
+  description: String!
+  relatedConnectionId: ID
+  relatedEarningId: ID
+  relatedPeriodMonth: String
+  relatedTaskId: ID
+  subject: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum DeliveryAgentAvailability {
+  BUSY
+  OFFLINE
+  ONLINE
+}
+
+type DeliveryAgentProfile {
+  activatedAt: DateTime
+  agentStatus: DeliveryAgentStatus!
+  availability: DeliveryAgentAvailability!
+  displayName: String!
+  eligibleForAssignments: Boolean!
+  kycAlerts: [String!]!
+  lastFailureReason: String
+  licenceBackFileId: ID
+  licenceFrontFileId: ID
+  licenceNextDueAt: DateTime
+  licenceNumberLast4: String!
+  licenceStatus: KycCheckStatus!
+  licenceValidTo: String
+  licenceVerifiedAt: DateTime
+  maxConcurrentTasks: Int!
+  orqUserId: String!
+  suspendedReason: String
+  userId: ID!
+  vehicleCategory: VehicleCategory!
+  vehicleNextDueAt: DateTime
+  vehicleNumberMasked: String!
+  vehicleRcFileId: ID
+  vehicleRcValidTo: String
+  vehicleStatus: KycCheckStatus!
+  vehicleVerifiedAt: DateTime
+  verifications: [KycVerificationAttempt!]!
+}
+
+enum DeliveryAgentStatus {
+  ACTIVE
+  DEACTIVATED
+  KYC_BLOCKED
+  MANUAL_REVIEW
+  PENDING_VERIFICATION
+  REJECTED
+  SUSPENDED
+}
+
+type DeliveryAgentSummary {
+  activeTaskCount: Int!
+  agentStatus: DeliveryAgentStatus!
+  availability: DeliveryAgentAvailability!
+  avatar: String
+  displayName: String!
+  kycValid: Boolean!
+  lastLat: Float
+  lastLng: Float
+  lastLocationAt: DateTime
+  orqUserId: String!
+  phone: String
+  userId: ID!
+  vehicleCategory: VehicleCategory!
+  vehicleNumberMasked: String!
+}
+
+type DeliveryCostByAgent {
+  agentName: String!
+  agentUserId: ID!
+  amount: String!
+  approvedAmount: String!
+  billableKm: String!
+  deliveries: Int!
+  paidAmount: String!
+  pendingAmount: String!
+}
+
+type DeliveryCostReport {
+  approvedAmount: String!
+  billableKm: String!
+  byAgent: [DeliveryCostByAgent!]!
+  deliveries: Int!
+  failedDeliveries: Int!
+  paidAmount: String!
+  pendingAmount: String!
+  periodMonth: String!
+  selfDeliveries: Int!
+  totalAmount: String!
+}
+
+type DeliveryEarning {
+  adjustmentTotal: String!
+  agentName: String!
+  agentUserId: ID!
+  approvedAt: DateTime
+  approvedBillableKm: String!
+  baseAmount: String!
+  deliveredAt: DateTime
+  distanceSource: DistanceSource!
+  estimatedDistanceKm: String
+  finalAmount: String!
+  id: ID!
+  measuredDistanceKm: String
+  orderNumber: String!
+  orqspaceId: ID!
+  orqspaceName: String!
+  paidAt: DateTime
+  payoutReference: String
+  periodMonth: String!
+  ratePerKm: String!
+  status: EarningStatus!
+  taskId: ID!
+  taskNumber: String!
+}
+
+enum DeliveryMode {
+  AGENT
+  SELF
+}
+
+type DeliveryNotification {
+  body: String!
+  createdAt: DateTime!
+  id: ID!
+  readAt: DateTime
+  title: String!
+  type: String!
+}
+
+type DeliveryNotificationPage {
+  items: [DeliveryNotification!]!
+  unreadCount: Int!
+}
+
+type DeliveryOffer {
+  agentName: String
+  agentUserId: ID!
+  assignmentType: AssignmentType!
+  declineReason: String
+  distanceToPickupKm: String
+  expiresAt: DateTime!
+  id: ID!
+  offeredAt: DateTime!
+  ratePerKmOffered: String!
+  respondedAt: DateTime
+  status: DeliveryOfferStatus!
+  taskId: ID!
+}
+
+enum DeliveryOfferStatus {
+  ACCEPTED
+  DECLINED
+  EXPIRED
+  OFFERED
+  WITHDRAWN
+}
+
+type DeliveryOperations {
+  agents: OperationsAgents!
+  breaches: [SlaBreach!]!
+  cod: OperationsCod!
+  deliveries: OperationsDeliveries!
+  generatedAt: DateTime!
+  orqspaceId: ID!
+  queue: OperationsQueue!
+  timezone: String!
+  timings: OperationsTimings!
+  trend: [OperationsTrendPoint!]!
+}
+
+type DeliveryStatement {
+  adjustments: String!
+  agentName: String!
+  agentOrqUserId: String!
+  agentUserId: ID!
+  approvedKm: String!
+  baseAmount: String!
+  codCollected: String!
+  codSettled: String!
+  deliveries: Int!
+  finalAmount: String!
+  finalizedAt: DateTime
+  generatedAt: DateTime!
+  id: ID!
+  orqspaceId: ID!
+  orqspaceName: String!
+  outstandingAmount: String!
+  paidAmount: String!
+  periodEnd: String!
+  periodMonth: String!
+  periodStart: String!
+  status: String!
+}
+
+type DeliveryStatusEvent {
+  actorName: String
+  actorRole: ActorRole!
+  createdAt: DateTime!
+  fromStatus: DeliveryTaskStatus
+  id: ID!
+  isOverride: Boolean!
+  reason: String
+  toStatus: DeliveryTaskStatus!
+}
+
+type DeliveryTask {
+  acceptedAt: DateTime
+  agent: DeliveryAgentSummary
+  agentUserId: ID
+  assignmentType: AssignmentType
+  attemptNo: Int!
+  attentionReason: String
+  cancellationReason: String
+  cancelledAt: DateTime
+  codAmount: String!
+  createdAt: DateTime!
+  currentOffer: DeliveryOffer
+  deliveredAt: DateTime
+  dropoffArea: String
+  dropoffLat: Float
+  dropoffLng: Float
+  dropoffSnapshot: AddressSnapshot
+  estimatedDistanceKm: String
+  estimatedEarnings: String
+  events: [DeliveryStatusEvent!]!
+  failedAt: DateTime
+  failureReason: String
+  id: ID!
+  measuredDistanceKm: String
+  mode: DeliveryMode!
+  needsAttention: Boolean!
+  offers: [DeliveryOffer!]!
+  orderId: ID!
+  orderNumber: String!
+  orqspaceId: ID!
+  orqspaceName: String!
+  pickedUpAt: DateTime
+  pickupLat: Float
+  pickupLng: Float
+  pickupSnapshot: AddressSnapshot
+  podFileId: ID
+  podRecipientName: String
+  podType: ProofOfDeliveryType
+  ratePerKmSnapshot: String
+  requiresOtp: Boolean!
+  selfStaffName: String
+  selfStaffPhone: String
+  status: DeliveryTaskStatus!
+  taskNumber: String!
+  updatedAt: DateTime!
+}
+
+type DeliveryTaskPage {
+  items: [DeliveryTask!]!
+  page: Int!
+  pageSize: Int!
+  total: Int!
+}
+
+enum DeliveryTaskStatus {
+  ACCEPTED
+  ARRIVING_AT_PICKUP
+  CANCELLED
+  DELIVERED
+  FAILED
+  IN_TRANSIT
+  OFFERED
+  PENDING_ASSIGNMENT
+  PICKED_UP
+  RETURNED_TO_ORIGIN
+}
+
+input DispatchOrderInput {
+  agentUserId: ID
+  assignmentType: AssignmentType
+  mode: DeliveryMode!
+  orderId: ID!
+  selfStaffName: String
+  selfStaffPhone: String
+}
+
+enum DistanceSource {
+  ESTIMATED_ROUTE
+  GPS_TRACE
+  WORKSPACE_APPROVED
+}
+
+enum EarningStatus {
+  APPROVED
+  ESTIMATED
+  PAID
+  PENDING_APPROVAL
+  UNDER_REVIEW
+  VOID
+}
+
+input EarningsFilterInput {
+  agentUserId: ID
+  orqspaceId: ID!
+  periodMonth: String
+  statuses: [EarningStatus!]
+}
+
+input ExtendPreparationInput {
+  minutes: Int
+  orderId: ID!
+}
+
+input FailDeliveryInput {
+  lat: Float
+  lng: Float
+  reason: String!
+  taskId: ID!
+}
+
+input InviteDeliveryAgentInput {
+  message: String
+  orqUserId: String!
+  orqspaceId: ID!
+  ratePerKm: String!
+}
+
+enum KycAttemptStatus {
+  FAILED
+  MISMATCH
+  PASSED
+  PENDING
+  PROVIDER_UNAVAILABLE
+}
+
+enum KycCheckStatus {
+  EXPIRED
+  FAILED
+  MISMATCH
+  NOT_STARTED
+  PENDING
+  PROVIDER_UNAVAILABLE
+  VERIFIED
+}
+
+enum KycCheckType {
+  DRIVING_LICENCE
+  VEHICLE_RC
+}
+
+enum KycTrigger {
+  MANUAL_REVIEW
+  REGISTRATION
+  RE_KYC
+  VEHICLE_CHANGE
+}
+
+type KycVerificationAttempt {
+  checkType: KycCheckType!
+  completedAt: DateTime
+  id: ID!
+  mismatchFields: [String!]!
+  requestedAt: DateTime!
+  status: KycAttemptStatus!
+  trigger: KycTrigger!
+}
+
+input LocationPingInput {
+  accuracyM: Float
+  heading: Float
+  lat: Float!
+  lng: Float!
+  recordedAt: DateTime!
+  speedMps: Float
+}
+
+type LocationPingResult {
+  accepted: Boolean!
+  reason: String
+  trackingActive: Boolean!
+}
+
+type LocationPoint {
+  accuracyM: Float
+  lat: Float!
+  lng: Float!
+  recordedAt: DateTime!
+}
+
+input MarkEarningsPaidInput {
+  earningIds: [ID!]!
+  orqspaceId: ID!
+  payoutReference: String!
+}
+
+input MarkOrderReturnedInput {
+  orderId: ID!
+  reason: String!
+  restock: Boolean!
+}
+
+type Mutation {
+  acceptDeliveryOffer(input: OfferResponseInput!): DeliveryTask!
+  acceptOrder(input: AcceptOrderInput!): Order!
+  adjustDeliveryEarning(input: AdjustEarningInput!): DeliveryEarning!
+  approveDeliveryEarning(input: ApproveEarningInput!): DeliveryEarning!
+  approveOrderCancellation(input: OrderActionInput!): Order!
+  approveOrderRefund(input: ApproveRefundInput!): Order!
+  attachOrderInvoice(fileId: ID!, orderId: ID!): OrderDocument!
+  cancelDeliveryAgentInvite(input: ConnectionReasonInput!): AgentConnection!
+  cancelDeliveryTask(input: TaskReasonInput!): DeliveryTask!
+  cancelMyOrder(input: OrderReasonInput!): Order!
+  cancelOrderByWorkspace(input: OrderReasonInput!): Order!
+  changeMyDeliveryVehicle(input: ChangeVehicleInput!): DeliveryAgentProfile!
+  closeSupportTicket(ticketId: ID!): SupportTicket!
+  completeDelivery(input: CompleteDeliveryInput!): DeliveryTask!
+  confirmCustomerPickup(input: OrderActionInput!): Order!
+  confirmDeliveryPickup(input: TaskActionInput!): DeliveryTask!
+  createSupportTicket(input: CreateSupportTicketInput!): SupportTicket!
+  decideDeliveryAgentReview(input: AdminReviewDecisionInput!): DeliveryAgentProfile!
+  declineDeliveryOffer(input: OfferResponseInput!): Boolean!
+  declineOrderCancellation(input: OrderReasonInput!): Order!
+  declineOrderReturn(input: OrderReasonInput!): Order!
+  disconnectDeliveryAgent(input: ConnectionReasonInput!): AgentConnection!
+  disconnectFromWorkspace(input: ConnectionReasonInput!): AgentConnection!
+  dispatchOrder(input: DispatchOrderInput!): DeliveryTask!
+  extendOrderPreparation(input: ExtendPreparationInput!): Order!
+  failDelivery(input: FailDeliveryInput!): DeliveryTask!
+  inviteDeliveryAgent(input: InviteDeliveryAgentInput!): AgentConnection!
+  markArrivingAtPickup(input: TaskActionInput!): DeliveryTask!
+  markDeliveryEarningsPaid(input: MarkEarningsPaidInput!): [DeliveryEarning!]!
+  markDeliveryNotificationsRead(ids: [ID!]! = []): Int!
+  markOrderAwaitingPickup(input: OrderActionInput!): Order!
+  markOrderReady(input: OrderActionInput!): Order!
+  markOrderReturned(input: MarkOrderReturnedInput!): Order!
+  overrideDeliveryAsDelivered(input: TaskReasonInput!): DeliveryTask!
+  placeOrder(input: PlaceOrderInput!): PlaceOrderResult!
+  reassignDeliveryTask(input: ReassignTaskInput!): DeliveryTask!
+  recordCodSettlement(input: RecordCodSettlementInput!): CodRecord!
+  recordMyLocation(input: LocationPingInput!): LocationPingResult!
+  recordOrderPayment(input: RecordOrderPaymentInput!): Order!
+  registerAsDeliveryAgent(input: RegisterDeliveryAgentInput!): DeliveryAgentProfile!
+  reinstateDeliveryAgent(input: AdminAgentActionInput!): DeliveryAgentProfile!
+  rejectOrder(input: OrderReasonInput!): Order!
+  reopenOrderForFulfilment(input: OrderActionInput!): Order!
+  replyToSupportTicket(input: ReplySupportTicketInput!): SupportMessage!
+  replyToSupportTicketAsSupport(input: ReplySupportTicketInput!): SupportMessage!
+  requestOrderReturn(input: OrderReasonInput!): Order!
+  resolveCodRecord(input: ResolveCodInput!): CodRecord!
+  respondToDeliveryInvitation(input: RespondToInvitationInput!): AgentConnection!
+  returnDeliveryToOrigin(input: TaskActionInput!): DeliveryTask!
+  reverifyMyDeliveryKyc(input: ReverifyKycInput!): DeliveryAgentProfile!
+  scheduleOrderReturnPickup(input: ScheduleReturnPickupInput!): Order!
+  setMyAvailability(availability: AgentAvailabilityChoice!): DeliveryAgentProfile!
+  setNotificationPreference(enabled: Boolean!, type: String!): [NotificationPreference!]!
+  startDeliveryTransit(input: TaskActionInput!): DeliveryTask!
+  startPreparingOrder(input: StartPreparationInput!): Order!
+  suspendDeliveryAgent(input: AdminAgentActionInput!): DeliveryAgentProfile!
+  updateDeliveryAgentRate(input: UpdateConnectionRateInput!): AgentConnection!
+  updateOrqspaceDeliverySettings(input: UpdateDeliverySettingsInput!): OrqspaceDeliverySettings!
+  updateSelfDelivery(input: SelfDeliveryUpdateInput!): DeliveryTask!
+  updateSupportTicket(input: UpdateSupportTicketInput!): SupportTicket!
+  withdrawDeliveryAgentDisconnectRequest(connectionId: ID!): AgentConnection!
+  withdrawWorkspaceDisconnectRequest(connectionId: ID!): AgentConnection!
+}
+
+input MyOrdersFilterInput {
+  page: Int! = 1
+  pageSize: Int! = 20
+}
+
+type NotificationPreference {
+  enabled: Boolean!
+  group: String!
+  label: String!
+  locked: Boolean!
+  type: String!
+}
+
+input OfferResponseInput {
+  offerId: ID!
+  reason: String
+}
+
+type OperationsAgents {
+  busy: Int!
+  connected: Int!
+  connectionLimit: Int!
+  offline: Int!
+  online: Int!
+  staleLocation: Int!
+  workload: [AgentWorkload!]!
+}
+
+type OperationsCod {
+  discrepancies: Int!
+  expectedOpen: String!
+  outstanding: String!
+}
+
+type OperationsDeliveries {
+  deliveredToday: Int!
+  failedToday: Int!
+  inTransit: Int!
+  needsAttention: Int!
+  offered: Int!
+  openOffers: Int!
+  toPickup: Int!
+  unassigned: Int!
+}
+
+type OperationsQueue {
+  awaitingPickup: Int!
+  deliveryFailed: Int!
+  newOrders: Int!
+  outForDelivery: Int!
+  preparing: Int!
+  readyForFulfilment: Int!
+}
+
+type OperationsSlaTargets {
+  assignMinutes: Int!
+  deliverMinutes: Int!
+  orderAcceptMinutes: Int!
+  pickupMinutes: Int!
+}
+
+type OperationsTimings {
+  averageDistanceKm: String
+  deliverySlaPercent: Float
+  medianAssignMinutes: Float
+  medianDeliverMinutes: Float
+  medianEndToEndMinutes: Float
+  medianOrderAcceptMinutes: Float
+  medianPickupMinutes: Float
+  orderAcceptSlaPercent: Float
+  slaTargets: OperationsSlaTargets!
+  successRatePercent: Float
+  windowDays: Int!
+}
+
+type OperationsTrendPoint {
+  day: String!
+  delivered: Int!
+  failed: Int!
+}
+
+type Order {
+  acceptedAt: DateTime
+  allowedNextStatuses: [OrderStatus!]!
+  amountPaid: String
+  buyerSnapshot: BuyerSnapshot!
+  cancelRequestReason: String
+  cancelRequestResolution: String
+  cancelRequestStatus: String
+  cancelRequestedAt: DateTime
+  cancellationReason: String
+  cancelledAt: DateTime
+  cancelledByRole: ActorRole
+  checkoutId: ID!
+  completedAt: DateTime
+  createdAt: DateTime!
+  currency: String!
+  customerId: ID!
+  customerNote: String
+  deliveredAt: DateTime
+  delivery: DeliveryTask
+  deliveryAddressSnapshot: AddressSnapshot
+  deliveryFee: String!
+  deliveryOtp: String
+  discountTotal: String!
+  dispatchedAt: DateTime
+  distanceFromPickupKm: Float
+  fulfilmentMethod: OrderFulfilmentMethod
+  history: [OrderStatusHistoryEntry!]!
+  id: ID!
+  invoice: OrderDocument
+  itemCount: Int!
+  items: [OrderItem!]!
+  orderNumber: String!
+  orderStatus: OrderStatus!
+  orqspaceId: ID!
+  orqspaceName: String!
+  paymentMethod: OrderPaymentMethod!
+  paymentStatus: OrderPaymentStatus!
+  payments: [OrderPayment!]!
+  preparationDueAt: DateTime
+  preparationMinutes: Int
+  preparingAt: DateTime
+  readyAt: DateTime
+  rejectionReason: String
+  requestedFulfilment: OrderRequestedFulfilment!
+  returnPickupDate: String
+  returnWindowEndsAt: DateTime
+  scheduledFor: DateTime
+  subtotalBase: String!
+  totalAmount: String!
+  totalGst: String!
+  updatedAt: DateTime!
+  version: Int!
+}
+
+input OrderActionInput {
+  note: String
+  orderId: ID!
+}
+
+type OrderDocument {
+  createdAt: DateTime!
+  id: ID!
+  mimeType: String!
+  originalName: String
+  sizeBytes: Int!
+}
+
+enum OrderFulfilmentMethod {
+  AGENT_DELIVERY
+  PICKUP
+  SELF_DELIVERY
+}
+
+type OrderItem {
+  gstPercentage: String!
+  id: ID!
+  imageUrl: String
+  lineTotal: String!
+  listingId: ID
+  listingType: String!
+  quantity: Int!
+  sku: String
+  stockRemaining: Int
+  title: String!
+  unitBasePrice: String!
+  unitGst: String!
+  unitTotalPrice: String!
+  variantId: ID
+  variantLabel: String
+}
+
+type OrderPage {
+  items: [Order!]!
+  page: Int!
+  pageSize: Int!
+  total: Int!
+}
+
+type OrderPayment {
+  amount: String!
+  failureReason: String
+  id: ID!
+  kind: OrderPaymentKind!
+  method: OrderPaymentMethod!
+  occurredAt: DateTime!
+  provider: String
+  providerReference: String
+  status: OrderPaymentRecordStatus!
+}
+
+enum OrderPaymentKind {
+  PAYMENT
+  REFUND
+}
+
+enum OrderPaymentMethod {
+  COD
+  ONLINE
+}
+
+enum OrderPaymentRecordStatus {
+  CANCELLED
+  FAILED
+  INITIATED
+  SUCCEEDED
+}
+
+enum OrderPaymentStatus {
+  FAILED
+  PAID
+  PARTIALLY_REFUNDED
+  PENDING
+  REFUNDED
+  REFUND_PENDING
+}
+
+enum OrderQueue {
+  ALL
+  CANCELLED
+  CANCEL_REQUESTS
+  COMPLETED
+  NEW
+  ONGOING
+  PROCESSING
+  SUPPORT
+  UPCOMING
+}
+
+type OrderQueueCount {
+  count: Int!
+  queue: String!
+}
+
+input OrderReasonInput {
+  orderId: ID!
+  reason: String!
+}
+
+enum OrderRequestedFulfilment {
+  DELIVERY
+  PICKUP
+}
+
+enum OrderStatus {
+  ACCEPTED
+  AWAITING_CUSTOMER_PICKUP
+  CANCELLED
+  DELIVERED
+  DELIVERY_FAILED
+  OUT_FOR_DELIVERY
+  PICKED_UP
+  PLACED
+  PREPARING
+  READY_FOR_FULFILMENT
+  REJECTED
+  RETURNED
+  RETURN_REQUESTED
+}
+
+type OrderStatusCount {
+  count: Int!
+  status: OrderStatus!
+}
+
+type OrderStatusHistoryEntry {
+  actorName: String
+  actorRole: ActorRole!
+  createdAt: DateTime!
+  fromStatus: OrderStatus
+  id: ID!
+  reason: String
+  toStatus: OrderStatus!
+}
+
+type OrderSummary {
+  completedChangePercent: Float
+  completedOrders: Int!
+  newOrdersToday: Int!
+  ongoingOrders: Int!
+  tabs: [OrderQueueCount!]!
+  totalSales: String!
+  totalSalesChangePercent: Float
+}
+
+type OrqspaceDeliverySettings {
+  activeAgentCount: Int!
+  agentLimit: Int!
+  assignmentStrategy: AssignmentStrategy!
+  autoAssignEnabled: Boolean!
+  maxOfferAttempts: Int!
+  maxPickupRadiusKm: String!
+  offerTimeoutSeconds: Int!
+  orqspaceId: ID!
+  pickupAddress: AddressSnapshot
+  pickupLat: Float
+  pickupLng: Float
+  readyForAgentDispatch: Boolean!
+  requireDeliveryOtp: Boolean!
+  roadDistanceFactor: String!
+  timezone: String!
+}
+
+input OrqspaceOrdersFilterInput {
+  orqspaceId: ID!
+  page: Int! = 1
+  pageSize: Int! = 20
+  paymentMethod: OrderPaymentMethod
+  queue: OrderQueue
+  search: String
+  statuses: [OrderStatus!]
+}
+
+input PickupAddressInput {
+  city: String
+  country: String
+  district: String
+  doorNo: String
+  landmark: String
+  pincode: String
+  recipientName: String
+  recipientPhone: String
+  state: String
+  street: String
+}
+
+input PlaceOrderInput {
+  addressId: ID
+  customerNote: String
+  idempotencyKey: String!
+  items: [PlaceOrderItemInput!]!
+  paymentMethod: OrderPaymentMethod!
+  requestedFulfilment: OrderRequestedFulfilment!
+  scheduledFor: String
+}
+
+input PlaceOrderItemInput {
+  listingId: ID!
+  quantity: Int!
+  variantId: ID
+}
+
+type PlaceOrderResult {
+  checkoutId: ID!
+  orders: [Order!]!
+  replayed: Boolean!
+}
+
+input PlatformAgentsFilterInput {
+  page: Int! = 1
+  pageSize: Int! = 25
+  search: String
+  statuses: [DeliveryAgentStatus!]
+}
+
+type PlatformDeliveryAgent {
+  activeConnections: Int!
+  completedDeliveries: Int!
+  createdAt: DateTime!
+  email: String
+  phone: String
+  profile: DeliveryAgentProfile!
+}
+
+type PlatformDeliveryAgentPage {
+  items: [PlatformDeliveryAgent!]!
+  page: Int!
+  pageSize: Int!
+  total: Int!
+}
+
+enum ProofOfDeliveryType {
+  ADMIN_OVERRIDE
+  OTP
+  PHOTO
+  SIGNATURE_NAME
+}
+
+type Query {
+  deliveryTaskTrace(taskId: ID!): [LocationPoint!]!
+  myCheckoutAddresses: [CheckoutAddress!]!
+  myDeliveryAgentProfile: DeliveryAgentProfile
+  myDeliveryConnections: [AgentConnection!]!
+  myDeliveryEarnings(periodMonth: String): AgentEarningsSummary!
+  myDeliveryEarningsTrend(months: Int! = 6): [AgentEarningsTrendPoint!]!
+  myDeliveryHistory: [DeliveryTask!]!
+  myDeliveryNotifications(limit: Int! = 30, unreadOnly: Boolean! = false): DeliveryNotificationPage!
+  myDeliveryPerformance(periodMonth: String!): AgentPerformance!
+  myDeliveryStatement(periodMonth: String!): AgentStatement!
+  myDeliveryStatements(limit: Int! = 24): [DeliveryStatement!]!
+  myDeliveryTask(taskId: ID!): DeliveryTask!
+  myNotificationPreferences: [NotificationPreference!]!
+  myOrder(orderId: ID!): Order!
+  myOrders(filter: MyOrdersFilterInput): OrderPage!
+  mySupportTicket(ticketId: ID!): SupportTicket!
+  mySupportTickets: [SupportTicket!]!
+  orqspaceCodRecords(filter: CodFilterInput!): [CodRecord!]!
+  orqspaceCodSummary(orqspaceId: ID!): CodSummary!
+  orqspaceDeliveryAgents(filter: WorkspaceConnectionsFilterInput!): [AgentConnection!]!
+  orqspaceDeliveryCostReport(input: CostReportInput!): DeliveryCostReport!
+  orqspaceDeliveryEarnings(filter: EarningsFilterInput!): [DeliveryEarning!]!
+  orqspaceDeliveryOperations(orqspaceId: ID!): DeliveryOperations!
+  orqspaceDeliverySettings(orqspaceId: ID!): OrqspaceDeliverySettings!
+  orqspaceDeliveryStatements(orqspaceId: ID!, periodMonth: String!): [DeliveryStatement!]!
+  orqspaceDeliveryTask(taskId: ID!): DeliveryTask!
+  orqspaceDeliveryTasks(filter: WorkspaceTasksFilterInput!): DeliveryTaskPage!
+  orqspaceLiveDeliveries(orqspaceId: ID!): [DeliveryTask!]!
+  orqspaceOrder(orderId: ID!): Order!
+  orqspaceOrderCounts(orqspaceId: ID!): [OrderStatusCount!]!
+  orqspaceOrderSummary(orqspaceId: ID!): OrderSummary!
+  orqspaceOrders(filter: OrqspaceOrdersFilterInput!): OrderPage!
+  platformDeliveryAgent(userId: ID!): PlatformDeliveryAgent!
+  platformDeliveryAgents(filter: PlatformAgentsFilterInput!): PlatformDeliveryAgentPage!
+  platformSupportTicket(ticketId: ID!): SupportTicket!
+  platformSupportTickets(filter: SupportTicketsFilterInput!): SupportTicketPage!
+  runHome: RunHome!
+  searchDeliveryAgent(input: SearchDeliveryAgentInput!): AgentSearchResult!
+}
+
+input ReassignTaskInput {
+  agentUserId: ID
+  assignmentType: AssignmentType!
+  reason: String!
+  taskId: ID!
+}
+
+input RecordCodSettlementInput {
+  amount: String!
+  codRecordId: ID!
+  method: CodCollectionMethod!
+  note: String
+}
+
+input RecordOrderPaymentInput {
+  amount: String!
+  failureReason: String
+  kind: OrderPaymentKind!
+  method: OrderPaymentMethod!
+  orderId: ID!
+  provider: String
+  providerReference: String
+  status: OrderPaymentRecordStatus! = SUCCEEDED
+}
+
+input RegisterDeliveryAgentInput {
+  consent: Boolean!
+  dateOfBirth: String!
+  licenceBackFileId: ID!
+  licenceFrontFileId: ID!
+  licenceNumber: String!
+  vehicleCategory: VehicleCategory!
+  vehicleNumber: String!
+  vehicleRcFileId: ID
+}
+
+input ReplySupportTicketInput {
+  attachmentFileIds: [ID!]
+  attachmentUrls: [String!]
+  body: String!
+  internal: Boolean
+  ticketId: ID!
+}
+
+input ResolveCodInput {
+  codRecordId: ID!
+  reason: String!
+  resolution: CodResolution!
+}
+
+input RespondToInvitationInput {
+  accept: Boolean!
+  connectionId: ID!
+}
+
+input ReverifyKycInput {
+  checks: [KycCheckType!]!
+}
+
+type RunHome {
+  activeTasks: [DeliveryTask!]!
+  connectionLimit: Int!
+  connections: [AgentConnection!]!
+  invitations: [AgentConnection!]!
+  openOffers: [AgentOffer!]!
+  profile: DeliveryAgentProfile!
+  today: AgentEarningsWindow!
+  unreadNotifications: Int!
+}
+
+input ScheduleReturnPickupInput {
+  orderId: ID!
+  pickupDate: String!
+}
+
+input SearchDeliveryAgentInput {
+  orqUserId: String!
+  orqspaceId: ID!
+}
+
+input SelfDeliveryUpdateInput {
+  codCollectedAmount: String
+  codMethod: CodCollectionMethod
+  otp: String
+  reason: String
+  recipientName: String
+  step: DeliveryTaskStatus!
+  taskId: ID!
+}
+
+type SlaBreach {
+  kind: String!
+  minutesOver: Float!
+  orderId: ID!
+  reference: String!
+  stage: String!
+  targetMinutes: Int!
+  taskId: ID
+}
+
+input StartPreparationInput {
+  note: String
+  orderId: ID!
+  preparationMinutes: Int
+}
+
+type SupportMessage {
+  attachmentFileIds: [ID!]!
+  attachmentUrls: [String!]!
+  authorName: String
+  authorRole: ActorRole!
+  body: String!
+  createdAt: DateTime!
+  id: ID!
+  isInternal: Boolean!
+}
+
+type SupportTicket {
+  assignedTeam: String
+  category: SupportTicketCategory!
+  createdAt: DateTime!
+  description: String!
+  id: ID!
+  messageCount: Int!
+  messages: [SupportMessage!]!
+  priority: SupportTicketPriority!
+  raisedByName: String!
+  raisedByOrqUserId: String!
+  raisedByUserId: ID!
+  relatedConnectionId: ID
+  relatedEarningId: ID
+  relatedPeriodMonth: String
+  relatedTaskId: ID
+  relatedTaskNumber: String
+  resolvedAt: DateTime
+  status: SupportTicketStatus!
+  subject: String!
+  ticketNumber: String!
+  updatedAt: DateTime!
+}
+
+enum SupportTicketCategory {
+  ACCOUNT_SECURITY
+  DELIVERY
+  EARNINGS_PAYMENT
+  EMERGENCY
+  KYC
+  TECHNICAL
+  WORKSPACE
+}
+
+type SupportTicketPage {
+  items: [SupportTicket!]!
+  page: Int!
+  pageSize: Int!
+  total: Int!
+}
+
+enum SupportTicketPriority {
+  HIGH
+  LOW
+  NORMAL
+  URGENT
+}
+
+enum SupportTicketStatus {
+  CLOSED
+  IN_PROGRESS
+  OPEN
+  RESOLVED
+  WAITING_ON_AGENT
+}
+
+input SupportTicketsFilterInput {
+  categories: [SupportTicketCategory!]
+  page: Int! = 1
+  pageSize: Int! = 25
+  search: String
+  statuses: [SupportTicketStatus!]
+}
+
+input TaskActionInput {
+  accuracyM: Float
+  lat: Float
+  lng: Float
+  taskId: ID!
+}
+
+input TaskReasonInput {
+  reason: String!
+  taskId: ID!
+}
+
+input UpdateConnectionRateInput {
+  connectionId: ID!
+  ratePerKm: String!
+  reason: String!
+}
+
+input UpdateDeliverySettingsInput {
+  assignmentStrategy: AssignmentStrategy
+  autoAssignEnabled: Boolean
+  maxOfferAttempts: Int
+  maxPickupRadiusKm: Float
+  offerTimeoutSeconds: Int
+  orqspaceId: ID!
+  pickupAddress: PickupAddressInput
+  pickupLat: Float
+  pickupLng: Float
+  requireDeliveryOtp: Boolean
+  roadDistanceFactor: Float
+  timezone: String
+}
+
+input UpdateSupportTicketInput {
+  assignedTeam: String
+  priority: SupportTicketPriority
+  status: SupportTicketStatus
+  ticketId: ID!
+}
+
+enum VehicleCategory {
+  BICYCLE
+  CAR
+  MOTORCYCLE
+  OTHER
+  SCOOTER
+  THREE_WHEELER
+  VAN
+}
+
+input WorkspaceConnectionsFilterInput {
+  orqspaceId: ID!
+  statuses: [AgentConnectionStatus!]
+}
+
+input WorkspaceTasksFilterInput {
+  needsAttention: Boolean
+  orqspaceId: ID!
+  page: Int! = 1
+  pageSize: Int! = 25
+  search: String
+  statuses: [DeliveryTaskStatus!]
+}

@@ -1,0 +1,10 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "..",
+  "testRegex": "src/modules/(orders|delivery)/.*\\.e2e\\.spec\\.ts$",
+  "transform": { "^.+\\.(t|j)s$": "ts-jest" },
+  "moduleNameMapper": { "^@/(.*)$": "<rootDir>/src/$1" },
+  "setupFiles": ["<rootDir>/src/modules/orders/testing/e2e-env.ts"],
+  "testEnvironment": "node",
+  "testTimeout": 60000
+}
